@@ -1,1 +1,1 @@
-remote server
+rpi server test
