@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  portal-iot:
+    image: portal-iot
+    container_name: portal-iot
+    env_file:
+      - ../services/portal-iot/.env
+    depends_on:
+      - db
+      - adminer
+    environment:
+      PYTHONUNBUFFERED: 1
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        - DB_HOST=${DB_HOST}
+        - DB_USER=${DB_USER}
+        - DB_PWD=${DB_PWD}
+        - DB_NAME=${DB_NAME}
+        - DB_PORT=${DB_PORT}
+        - DB_ENGINE=${DB_ENGINE}
+    ports:
+      - 5000:5000
+    volumes: 
+      - '.:/code'
+  
+  db:
+    image: mariadb:10.5.8
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - ../services/db/.env
+    ports:
+      - 3306:3306
+    volumes:
+      - ../volumes/db:/var/lib/mysql
+  adminer:
+    image: adminer:latest
+    env_file:
+      - ../services/adminer/.env
+    ports:
+      - 8080:8080
+
