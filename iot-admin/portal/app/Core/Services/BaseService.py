@@ -91,3 +91,6 @@ class BaseService:
 
     def get_relationship_names(self) -> List[str]:
         return cast(BaseModel, self.model).relationship_names
+    
+    def get_model_path_name(self) -> str:
+        return cast(BaseModel, self.model).model_path_name

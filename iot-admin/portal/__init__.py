@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask.json import jsonify
 
 import portal.database.DBConnection as DBConn
-from portal.app.Data.Models.models import *
+from portal.app.Data.Models import *
 from portal.app.Exceptions.APIException import APIException
 import Environment as env
 
@@ -33,11 +33,9 @@ def create_app():
     except OSError:
         pass
 
-    from .routes.ExampleRouter import example
-    from .routes.DumpRouter import dump
+    from .routes.MqttTopicRouter import mqtt_router, mqtt_service
 
-    app.register_blueprint(example, url_prefix=f'/{env.STAGE}/example')
-    app.register_blueprint(dump, url_prefix=f'/{env.STAGE}/dump')
+    app.register_blueprint(mqtt_router, url_prefix=f'/{env.STAGE}/{mqtt_service.get_model_path_name()}')
     
 
     @app.errorhandler(APIException)
@@ -45,5 +43,10 @@ def create_app():
         response = jsonify(error.to_dict())
         response.status_code = error.status_code
         return response
+    
+    # a simple page that says hello
+    @app.route('/')
+    def index():
+        return 'Test index!'
 
     return app

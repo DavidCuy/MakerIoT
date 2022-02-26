@@ -2,20 +2,20 @@ from typing import Any, Dict, List
 from sqlalchemy import Column, Integer, String
 from ...Core.Data.BaseModel import BaseModel
 
-class Dump(BaseModel):
-    """ Table Dumps Database model
+class MqttTopic(BaseModel):
+    """ Table MqttTopics Database model
 
     Args:
         BaseModel (ORMClass): Parent class
 
     Returns:
-        Dump: Instance of model
+        MqttTopic: Instance of model
     """
-    __tablename__ = 'Dumps'
-    id = Column("IdDump", Integer, primary_key=True)
-    Description = Column("Description", String, nullable=False)
+    __tablename__ = 'MqttTopics'
+    id = Column("IdMqttTopic", Integer, primary_key=True)
+    topic = Column("topic", String, nullable=False)
     
-    model_path_name = "dump"
+    model_path_name = "mqtt-topic"
     
     def property_map(self) -> Dict:
         return {
@@ -24,11 +24,11 @@ class Dump(BaseModel):
     
     def display_members(self) -> List[str]:
         return [
-            "id", "Description"
+            "id", "topic"
         ]
     
     @classmethod
     def rules_for_store(cls_) -> Dict[str, List[Any]]:
         return {
-            "Description": ["required", "string"]
+            "topic": ["required", "string"]
         }
