@@ -25,7 +25,7 @@ def env(env_key: str, default_value: Any) -> Any:
 
 APP_NAME    = env("APP_NAME", "Flask app")
 APP_URL     = env("APP_URL", "http://localhost")
+STAGE       = env("STAGE", "dev")
 
 SQLITE_PATH = env("SQLITE_PATH", "localhost")
-print(SQLITE_PATH)
 SQLITE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), SQLITE_PATH))

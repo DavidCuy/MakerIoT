@@ -5,9 +5,10 @@ from flask_migrate import Migrate, migrate
 from flask_cors import CORS
 from flask.json import jsonify
 
-import api.database.DBConnection as DBConn
-from api.app.Data.Models.models import *
-from api.app.Exceptions.APIException import APIException
+import portal.database.DBConnection as DBConn
+from portal.app.Data.Models.models import *
+from portal.app.Exceptions.APIException import APIException
+import Environment as env
 
 
 def create_app():
@@ -35,8 +36,8 @@ def create_app():
     from .routes.ExampleRouter import example
     from .routes.DumpRouter import dump
 
-    app.register_blueprint(example, url_prefix='/dev/api/v1/example')
-    app.register_blueprint(dump, url_prefix='/dev/api/v1/dump')
+    app.register_blueprint(example, url_prefix=f'/{env.STAGE}/example')
+    app.register_blueprint(dump, url_prefix=f'/{env.STAGE}/dump')
     
 
     @app.errorhandler(APIException)
