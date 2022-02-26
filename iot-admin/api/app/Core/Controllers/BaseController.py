@@ -18,7 +18,6 @@ SUCCESS_STATUS = 200
 UNAUTHORIZED_STATUS = 401
 ERROR_STATUS = 400
 
-@auth_midleware
 def index(service):
     session = get_session()
     (page, per_page) = get_paginate_params(request)
@@ -63,18 +62,19 @@ def index(service):
     except APIException as e:
         logging.exception("APIException occurred")
         body = e.to_dict()
+        encoder = AlchemyEncoder
         status_code = e.status_code
     except Exception as e:
         logging.exception("Cannot make the request")
         print(str(e))
         body = dict(message=str(e))
+        encoder = AlchemyEncoder
         status_code = HTTPStatusCode.UNPROCESABLE_ENTITY.value
     finally:
         session.close()
     
     return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
 
-@auth_midleware
 def find(service, id: int):
     session = get_session()
     relationship_retrieve = get_relationship_params(request)

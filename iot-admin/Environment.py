@@ -26,14 +26,6 @@ def env(env_key: str, default_value: Any) -> Any:
 APP_NAME    = env("APP_NAME", "Flask app")
 APP_URL     = env("APP_URL", "http://localhost")
 
-DB_HOST     = env("DB_HOST", "localhost")
-DB_USER     = env("DB_USER", "user")
-DB_PWD      = env("DB_PWD", "secret")
-DB_NAME     = env("DB_NAME", "dbname")
-DB_PORT     = env("DB_PORT", 1443)
-DB_ENGINE   = env("DB_ENGINE", "sql+engine")
-DB_DRIVER   = env("DB_DRIVER", "sql+driver")
-
-AWS_ACCESS_KEY      = env("AWS_ACCESS_KEY", "access_key")
-AWS_SECRET_KEY      = env("AWS_SECRET_KEY", "secret_key")
-BUCKET_NAME         = env("BUCKET_NAME", "bucket_name")
+SQLITE_PATH = env("SQLITE_PATH", "localhost")
+print(SQLITE_PATH)
+SQLITE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), SQLITE_PATH))

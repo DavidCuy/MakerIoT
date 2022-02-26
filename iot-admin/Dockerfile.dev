@@ -1,12 +1,7 @@
 # set base image (host OS)
 FROM python:3.7-slim
 
-ARG DB_HOST
-ARG DB_USER
-ARG DB_PWD
-ARG DB_NAME
-ARG DB_PORT
-ARG DB_ENGINE
+ARG SQLITE_PATH
 
 # set the working directory in the container
 WORKDIR /code
@@ -15,12 +10,7 @@ ENV FLASK_APP api
 ENV FLASK_RUN_HOST 0.0.0.0
 ENV FLASK_ENV development
 
-ENV DB_HOST $DB_HOST
-ENV DB_USER $DB_USER
-ENV DB_PWD $DB_PWD
-ENV DB_NAME $DB_NAME
-ENV DB_PORT $DB_PORT
-ENV DB_ENGINE $DB_ENGINE
+ENV SQLITE_PATH $SQLITE_PATH
 
 # copy the dependencies file to the working directory
 COPY requirements.txt requirements.txt
@@ -30,5 +20,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN flask db upgrade
 CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
 

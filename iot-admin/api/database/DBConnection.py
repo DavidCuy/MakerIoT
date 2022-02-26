@@ -9,7 +9,7 @@ from sqlalchemy.orm.session import Session as ORMSession
 import Environment as env
 
 ## Database connection string
-connect_url = "sqlite:///app.db" if str(env.DB_ENGINE).startswith("sqlite") else f"{env.DB_ENGINE}://{env.DB_USER}:{env.DB_PWD}@{env.DB_HOST}:{env.DB_PORT}/{env.DB_NAME}?charset=utf8mb4"
+connect_url = f"sqlite:///{env.SQLITE_PATH}"
 db: SQLAlchemy = SQLAlchemy()
 
 
