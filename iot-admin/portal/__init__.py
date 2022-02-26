@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate, migrate
 from flask_cors import CORS
 from flask.json import jsonify
@@ -47,6 +47,7 @@ def create_app():
     # a simple page that says hello
     @app.route('/')
     def index():
-        return 'Test index!'
+        return render_template('pages/index.html')
+
 
     return app
