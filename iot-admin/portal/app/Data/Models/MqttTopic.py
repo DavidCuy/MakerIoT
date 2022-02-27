@@ -14,17 +14,18 @@ class MqttTopic(BaseModel):
     __tablename__ = 'MqttTopics'
     id = Column("IdMqttTopic", Integer, primary_key=True)
     topic = Column("topic", String, nullable=False)
+    description = Column("description", String, nullable=True)
     
     model_path_name = "mqtt-topic"
     
     def property_map(self) -> Dict:
         return {
-            "id": "IdDump"
+            "id": "IdMqttTopic"
         }
     
     def display_members(self) -> List[str]:
         return [
-            "id", "topic"
+            "id", "topic", "description"
         ]
     
     @classmethod
