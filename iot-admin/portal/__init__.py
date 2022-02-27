@@ -47,7 +47,11 @@ def create_app():
     # a simple page that says hello
     @app.route('/')
     def index():
-        return render_template('pages/index.html')
+        return render_template('pages/index.html', current_page='dashboard')
+    
+    @app.route('/mqtt')
+    def mqtt_page():
+        return render_template('pages/mqtt-catalog.html', current_page='mqtt')
 
 
     return app
