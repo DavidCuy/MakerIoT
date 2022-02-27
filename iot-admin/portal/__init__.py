@@ -43,15 +43,6 @@ def create_app():
         response = jsonify(error.to_dict())
         response.status_code = error.status_code
         return response
-    
-    # a simple page that says hello
-    @app.route('/')
-    def index():
-        return render_template('pages/index.html', current_page='dashboard')
-    
-    @app.route('/mqtt')
-    def mqtt_page():
-        return render_template('pages/mqtt-catalog.html', current_page='mqtt')
 
 
     return app
