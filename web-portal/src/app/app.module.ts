@@ -7,6 +7,8 @@ import { SidebarComponentComponent } from './components/sidebar-component/sideba
 import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
 import { FooterComponentComponent } from './components/footer-component/footer-component.component';
 import { ConfigbarComponentComponent } from './components/configbar-component/configbar-component.component';
+import { MqttTestComponent } from './pages/mqtt-test/mqtt-test.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { ConfigbarComponentComponent } from './components/configbar-component/co
     SidebarComponentComponent,
     NavbarComponentComponent,
     FooterComponentComponent,
-    ConfigbarComponentComponent
+    ConfigbarComponentComponent,
+    MqttTestComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
