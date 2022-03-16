@@ -1,0 +1,18 @@
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #344767;
+    background-color: #fff;
+}
+
+.card>.card-body.tabs-container {
+    background-color: #f8f9fa;
+}
+
+textarea.form-control,
+.inner-message {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.inner-card>.card-header {
+    background-color: #f8f9fa;
+}
