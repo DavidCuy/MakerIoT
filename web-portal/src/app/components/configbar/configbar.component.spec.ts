@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfigbarComponentComponent } from './configbar-component.component';
+import { ConfigbarComponent } from './configbar.component';
 
-describe('ConfigbarComponentComponent', () => {
-  let component: ConfigbarComponentComponent;
-  let fixture: ComponentFixture<ConfigbarComponentComponent>;
+describe('ConfigbarComponent', () => {
+  let component: ConfigbarComponent;
+  let fixture: ComponentFixture<ConfigbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfigbarComponentComponent ]
+      declarations: [ ConfigbarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfigbarComponentComponent);
+    fixture = TestBed.createComponent(ConfigbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

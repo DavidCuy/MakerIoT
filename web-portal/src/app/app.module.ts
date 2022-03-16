@@ -3,20 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SidebarComponentComponent } from './components/sidebar-component/sidebar-component.component';
-import { NavbarComponentComponent } from './components/navbar-component/navbar-component.component';
-import { FooterComponentComponent } from './components/footer-component/footer-component.component';
-import { ConfigbarComponentComponent } from './components/configbar-component/configbar-component.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ConfigbarComponent } from './components/configbar/configbar.component';
 import { MqttTestComponent } from './pages/mqtt-test/mqtt-test.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponentComponent,
-    NavbarComponentComponent,
-    FooterComponentComponent,
-    ConfigbarComponentComponent,
+    SidebarComponent,
+    NavbarComponent,
+    FooterComponent,
+    ConfigbarComponent,
     MqttTestComponent,
     DashboardComponent
   ],
