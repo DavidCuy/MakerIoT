@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ConfigbarComponent } from './components/configbar/configbar.component';
 import { MqttTestComponent } from './pages/mqtt-test/mqtt-test.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { environment as env } from '../environments/environment';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: env.mqtt.server,
+  port: env.mqtt.port,
+  protocol: (env.mqtt.protocol === 'wss') ? 'wss' : 'ws',
+  path: '',
+};
 
 @NgModule({
   declarations: [
@@ -22,7 +33,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
+    FormsModule,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,3 +16,11 @@ textarea.form-control,
 .inner-card>.card-header {
     background-color: #f8f9fa;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.mqtt-topic.selected {
+    background-color: #DDD;
+}
