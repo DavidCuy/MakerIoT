@@ -13,6 +13,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { environment as env } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MqttCredentialComponent } from './pages/mqtt-credential/mqtt-credential.component';
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: env.mqtt.server,
@@ -29,7 +30,8 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     FooterComponent,
     ConfigbarComponent,
     MqttTestComponent,
-    DashboardComponent
+    DashboardComponent,
+    MqttCredentialComponent
   ],
   imports: [
     BrowserModule,

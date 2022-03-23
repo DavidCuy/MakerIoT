@@ -9,11 +9,23 @@
 <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
     <ul class="navbar-nav">
         <li class="nav-item" *ngFor="let mitem of menu_items">
-            <a class="nav-link text-white" routerLink="{{ mitem.url }}" routerLinkActive="active bg-gradient-primary">
-                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="material-icons opacity-10">{{ mitem.icon }}</i>
-                </div>
-                <span class="nav-link-text ms-1">{{ mitem.title }}</span>
+            <a *ngIf="mitem.submenu" data-bs-toggle="collapse" [href]="'#{{mitem.name}}'" class="nav-link text-white" [ngClass]="{'active': router_active === mitem.name}" role="button">
+                <i class="material-icons-round me-2">{{ mitem.icon }}</i>
+                <span class="nav-link-text ms-2 ps-1">{{ mitem.title }}</span>
+            </a>
+            <div class="collapse show" id="{{mitem.name}}" *ngIf="mitem.submenu">
+                <ul class="nav">
+                    <li class="nav-item " *ngFor="let sm of mitem.submenu">
+                        <a class="nav-link text-white " routerLink="{{ sm.url }}" routerLinkActive="active bg-gradient-primary">
+                            <span class="sidenav-mini-icon"> {{ sm.title | slice:0:1 }} </span>
+                            <span class="sidenav-normal  ms-2  ps-1"> {{ sm.title }} </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <a *ngIf="!mitem.submenu" class="nav-link text-white" role="button" routerLink="{{ mitem.url }}" routerLinkActive="active bg-gradient-primary">
+                <i class="material-icons-round me-2">{{ mitem.icon }}</i>
+                <span class="nav-link-text ms-2 ps-1">{{ mitem.title }}</span>
             </a>
         </li>
     </ul>

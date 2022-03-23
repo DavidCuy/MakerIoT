@@ -10,27 +10,53 @@ export class SidebarComponent implements OnInit, DoCheck {
   @Output() pageName_emitter = new EventEmitter<string>();
   @Output() breadcrumbs_emitter = new EventEmitter<string[]>();
 
+  router_active = '';
+
   menu_items: Array<any> = [
     {
       title: 'Dashboard',
+      name: 'dashboard',
       icon: 'dashboard',
       url: '/dashboard'
     },
     {
-      title: 'MQTT Test',
+      title: 'MQTT',
+      name: 'mqtt',
       icon: 'network_wifi',
-      url: '/mqtt-test'
+      submenu: [{
+        title: 'Test',
+        name: 'mqtt-test',
+        url: '/mqtt-test'
+      }, {
+        title: 'Gestor de credenciales',
+        name: 'credential-manager',
+        url: '/mqtt-credential-manager'
+      }]
     }
   ]
 
-  constructor(private _router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   ngDoCheck(): void {
-    const menu_item = this.menu_items.find(mi => mi.url === this._router.url)
+    let menu_item = this.menu_items.find(mi => mi.url === this.router.url)
+    let parent_item: any = null;
+    if (menu_item === undefined) {
+      this.menu_items.forEach((mi) => {
+        if (mi.submenu) {
+          menu_item = mi.submenu.find((smi: { url: string; }) => smi.url === this.router.url)
+          if (menu_item !== undefined) {
+            parent_item = mi
+            return
+          }
+        }
+      })
+    }
     if (menu_item === undefined) return
+    this.router_active = parent_item === null ? null : parent_item.name;
     this.breadcrumbs_emitter.emit(menu_item.title)
     this.pageName_emitter.emit(menu_item.title)
   }
