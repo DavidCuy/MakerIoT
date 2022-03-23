@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IMqttMessage } from 'ngx-mqtt';
 import { Subject, Observable, Subscription } from 'rxjs';
 import { MqttManagerService } from '../../services/mqtt-manager.service';
@@ -10,7 +10,7 @@ import { MqttMessage } from '../../interfaces/MqttMessage.interface';
   templateUrl: './mqtt-test.component.html',
   styleUrls: ['./mqtt-test.component.css']
 })
-export class MqttTestComponent implements OnInit {
+export class MqttTestComponent implements OnInit, OnDestroy {
   select_tabname = 'subscribe'
   sub_topic_model = '';
   pub_topic_model = '';
@@ -24,6 +24,12 @@ export class MqttTestComponent implements OnInit {
   constructor(private mqttManager: MqttManagerService) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+      this.topic_messages.forEach((tm) => {
+        tm.subscription.unsubscribe()
+      })
   }
 
   tabname_selected(tabname: string): void {
