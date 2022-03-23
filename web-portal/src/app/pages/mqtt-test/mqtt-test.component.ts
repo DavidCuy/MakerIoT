@@ -18,7 +18,6 @@ export class MqttTestComponent implements OnInit {
   subscribed_topics: Array<string> = [];
   topic_messages: Array<TopicMessage> = [];
   displayed_messages: Array<MqttMessage> = [];
-  private subscriptions: Array<Subscription> = [];
 
   constructor(private mqttManager: MqttManagerService) { }
 
@@ -34,8 +33,12 @@ export class MqttTestComponent implements OnInit {
     if (this.subscribed_topics.includes(this.sub_topic_model)) return
 
     this.subscribed_topics.unshift(this.sub_topic_model);
-    this.subscriptions.push(
-      this.mqttManager.subscribe(this.sub_topic_model).subscribe((message: IMqttMessage) => {
+    this.selected_topic = this.sub_topic_model
+
+    const selected_tm: TopicMessage = {
+      topic: this.selected_topic,
+      messages: [],
+      subscription: this.mqttManager.subscribe(this.sub_topic_model).subscribe((message: IMqttMessage) => {
         if (this.subscribed_topics.includes(message.topic)) {
           const payload = JSON.parse(message.payload.toString());
 
@@ -51,13 +54,6 @@ export class MqttTestComponent implements OnInit {
           console.log(this.topic_messages)
         }
       })
-    );
-
-    this.selected_topic = this.sub_topic_model
-
-    const selected_tm = {
-      topic: this.selected_topic,
-      messages: []
     }
     this.topic_messages.push(selected_tm)
 
@@ -73,9 +69,21 @@ export class MqttTestComponent implements OnInit {
     console.log(topic)
     this.selected_topic = topic;
 
-    const selected_tm = this.topic_messages.find((tm) => tm.topic == topic);
+    const selected_tm = this.topic_messages.find((tm) => tm.topic === topic);
     if(selected_tm === null || selected_tm === undefined) return
     this.displayed_messages = selected_tm.messages
+  }
+
+  remove_topic(topic: string) {
+    console.log(`Remove topic => ${topic}`);
+    const sub_topic = this.topic_messages.find((tm) => tm.topic === topic)
+    console.log(sub_topic)
+    if(sub_topic === null || sub_topic === undefined) return
+    sub_topic.subscription.unsubscribe();
+
+    this.topic_messages = this.topic_messages.filter((tm) => tm.topic !== topic);
+    this.subscribed_topics = this.subscribed_topics.filter((t) => t !== topic);
+    console.log(this.topic_messages)
   }
 
 }
