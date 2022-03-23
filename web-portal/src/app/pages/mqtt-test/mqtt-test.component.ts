@@ -13,6 +13,8 @@ import { MqttMessage } from '../../interfaces/MqttMessage.interface';
 export class MqttTestComponent implements OnInit {
   select_tabname = 'subscribe'
   sub_topic_model = '';
+  pub_topic_model = '';
+  pub_text_model = '';
   selected_topic: string = '';
 
   subscribed_topics: Array<string> = [];
@@ -50,7 +52,7 @@ export class MqttTestComponent implements OnInit {
             payload: payload,
             topic: message.topic
           }
-          selected_tm?.messages.push(mqtt_message)
+          selected_tm?.messages.unshift(mqtt_message)
           console.log(this.topic_messages)
         }
       })
@@ -84,6 +86,11 @@ export class MqttTestComponent implements OnInit {
     this.topic_messages = this.topic_messages.filter((tm) => tm.topic !== topic);
     this.subscribed_topics = this.subscribed_topics.filter((t) => t !== topic);
     console.log(this.topic_messages)
+  }
+
+  publish_to_topic() {
+    this.mqttManager.publish(this.pub_topic_model, this.pub_text_model);
+
   }
 
 }
