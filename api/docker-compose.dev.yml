@@ -2,10 +2,10 @@ version: '3'
 
 services:
   portal-iot:
-    image: portal-iot
-    container_name: portal-iot
+    image: iot-server
+    container_name: iot-server
     env_file:
-      - ../services/portal-iot/.env
+      - ../services/server/.env
     environment:
       PYTHONUNBUFFERED: 1
     build:
@@ -17,5 +17,9 @@ services:
       - 5000:5000
     volumes: 
       - '.:/code'
+      - '../services/server/conf:/code/conf'
       - '../volumes/db:/code/db'
+      - '../volumes/server/storage:/code/portal/storage/local'
+      - '../volumes/server/credentials/server:/code/portal/storage/credentials/server'
+      - '../volumes/server/credentials/clients:/code/portal/storage/credentials/clients'
 

@@ -10,7 +10,6 @@ from portal.app.Validators.RequestValidator import RequestValidator
 from ...Data.Interfaces.PaginationResult import PaginationResult
 from ..Data.BaseModel import BaseModel
 from ..Services.BaseService import BaseService
-from ...Midlewares.auth import auth_midleware
 from ....database.DBConnection import AlchemyEncoder, AlchemyRelationEncoder, get_session
 from ....utils.http_utils import build_response, get_paginate_params, get_filter_params, get_relationship_params, get_search_method_param, get_search_params
 

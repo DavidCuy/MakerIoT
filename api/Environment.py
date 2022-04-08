@@ -29,3 +29,9 @@ STAGE       = env("STAGE", "dev")
 
 SQLITE_PATH = env("SQLITE_PATH", "localhost")
 SQLITE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), SQLITE_PATH))
+
+SERVER_CA_CERT = "ca.crt"
+SERVER_CA_KEY= "ca.key"
+SERVER_CSR = "server.csr"
+SERVER_PRIVATE_KEY = "server.key"
+SERVER_CERT = "server.crt"

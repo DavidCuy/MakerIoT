@@ -3,8 +3,8 @@ from typing import List
 from ...config.storage import config
 
 class LocalStorage:
-    def __init__(self) -> None:
-        self.initial_path = config['local']['initial_path']
+    def __init__(self, unit) -> None:
+        self.initial_path = config['local'][unit]['initial_path']
         if not os.path.exists(self.initial_path):
             try:
                 os.makedirs(self.initial_path)
@@ -34,7 +34,7 @@ class LocalStorage:
     def put(self, path: str, content: bytes) -> bool:
         path = os.path.join(self.initial_path, path)
         try:
-            with open(path, 'wb') as f:
+            with open(path, 'wb+') as f:
                 f.write(content)
                 f.close()
         except (FileNotFoundError, IOError) as e:

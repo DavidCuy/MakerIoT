@@ -127,6 +127,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-volumes/*
-!volumes/.gitkeep
+volumes/db/*
+!volumes/db/.gitkeep
+volumes/server/credentials/*
+!volumes/server/credentials/.gitkeep
+volumes/server/storage/*
+!volumes/server/storage/.gitkeep
+
+services/mosquitto/certs/*
+!services/mosquitto/certs/.gitkeep
+
 template/*
