@@ -5,12 +5,11 @@
 # if the configuration has already been done before, this script does nothing
 
 import Environment as env
-import os
 from portal.utils.cert_manager import CertManager
 from portal.utils.storage import Storage
 
 def generateCertAuthority(certManager: CertManager):
-    if not os.path.isfile(env.SERVER_CA_CERT) or not os.path.isfile(env.SERVER_CA_KEY) :
+    if not Storage('local', 'server-credentials').file_exist(env.SERVER_CA_CERT) or not Storage('local', 'server-credentials').file_exist(env.SERVER_CA_KEY) :
         cert_bytes, key_bytes = certManager.generate_cert_authority("mosquitto")
         
         Storage('local', 'server-credentials').put(env.SERVER_CA_CERT, cert_bytes)
@@ -19,20 +18,20 @@ def generateCertAuthority(certManager: CertManager):
 
 
 def generateCSR(certManager: CertManager, private_key: str):
-    if not os.path.isfile(env.SERVER_CSR):
+    if not Storage('local', 'server-credentials').file_exist(env.SERVER_CSR):
         csr_bytes = certManager.generate_certificate_signing_request(private_key, "mosquitto")
         Storage('local', 'server-credentials').put(env.SERVER_CSR, csr_bytes)
     return Storage('local', 'server-credentials').get(env.SERVER_CSR).decode('utf-8')
 
 def generatePrivateKey(certManager: CertManager, save: bool = True):
-    if not os.path.isfile(env.SERVER_PRIVATE_KEY):
+    if not Storage('local', 'server-credentials').file_exist(env.SERVER_PRIVATE_KEY):
         pkey = certManager.generate_private_key()
         Storage('local', 'server-credentials').put(env.SERVER_PRIVATE_KEY, pkey)
     return Storage('local', 'server-credentials').get(env.SERVER_PRIVATE_KEY).decode('utf-8')
 
 
 def askCertSign(certManager: CertManager, ca_cert, ca_key, csr, save: bool = True):
-    if not os.path.isfile(env.SERVER_CERT):
+    if not Storage('local', 'server-credentials').file_exist(env.SERVER_CERT):
         cert = certManager.generate_self_signed_certificate(ca_cert, ca_key, csr)
         Storage('local', 'server-credentials').put(env.SERVER_CERT, cert)
     return Storage('local', 'server-credentials').get(env.SERVER_CERT).decode('utf-8')

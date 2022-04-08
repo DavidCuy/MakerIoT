@@ -12,7 +12,9 @@ class LocalStorage:
                 print (f"Creation of the directory {self.initial_path} failed")
             else:
                 print (f"Successfully created the directory {self.initial_path}")
-            
+    
+    def file_exist(self, path: str) -> bool:
+        return os.path.isfile(os.path.join(self.initial_path, path))
 
     def list_files(self, path: str = "") -> List[str]:
         source_folder = os.path.join(self.initial_path, path)

@@ -22,6 +22,9 @@ class Storage:
         self.unit = unit
         return self
     
+    def file_exist(self, path: str) -> bool:
+        return self.storageManager.file_exist(path)
+    
     def list(self, path: str = "") -> List[str]:
         return self.storageManager.list_files(path)
     
