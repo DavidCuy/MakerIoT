@@ -16,7 +16,7 @@ from flask import request
 
 def generateCSR(certManager: CertManager, private_key: str, client_name: str):
     if not Storage('local', 'client-credentials').file_exist(f"{client_name}.csr"):
-        csr_bytes = certManager.generate_certificate_signing_request(private_key, "mosquitto")
+        csr_bytes = certManager.generate_certificate_signing_request(private_key, 'localhost', ['localhost', 'mosquitto', 'host.docker.internal'], ['127.0.0.1'])
         Storage('local', 'client-credentials').put(f"{client_name}.csr", csr_bytes)
     return Storage('local', 'client-credentials').get(f"{client_name}.csr").decode('utf-8')
 
@@ -45,8 +45,8 @@ def generate_certificate(service):
     try:
         ca_cert = Storage('local', 'server-credentials').get(env.SERVER_CA_CERT).decode('utf-8')
         ca_key = Storage('local', 'server-credentials').get(env.SERVER_CA_KEY).decode('utf-8')
-        csr = generateCSR(certManager, ca_key, client_name)
         key = generatePrivateKey(certManager, client_name)
+        csr = generateCSR(certManager, key, client_name)
         cert = askCertSign(certManager, ca_cert, ca_key, csr, client_name)
         body = {
             "csr": csr,

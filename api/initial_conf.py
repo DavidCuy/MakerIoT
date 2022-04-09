@@ -19,7 +19,7 @@ def generateCertAuthority(certManager: CertManager):
 
 def generateCSR(certManager: CertManager, private_key: str):
     if not Storage('local', 'server-credentials').file_exist(env.SERVER_CSR):
-        csr_bytes = certManager.generate_certificate_signing_request(private_key, "mosquitto")
+        csr_bytes = certManager.generate_certificate_signing_request(private_key, "localhost", ['localhost', 'mosquitto', 'host.docker.internal'], ['127.0.0.1'])
         Storage('local', 'server-credentials').put(env.SERVER_CSR, csr_bytes)
     return Storage('local', 'server-credentials').get(env.SERVER_CSR).decode('utf-8')
 
@@ -40,8 +40,8 @@ def generate_server_credentials():
     certManager = CertManager()
     try:
         ca_cert, ca_key = generateCertAuthority(certManager)
-        csr = generateCSR(certManager, ca_key)
         key = generatePrivateKey(certManager)
+        csr = generateCSR(certManager, key)
         cert = askCertSign(certManager, ca_cert, ca_key, csr)
         print(cert)
     except Exception as e:

@@ -40,11 +40,37 @@ class CertManager:
         key.generate_key(crypto.TYPE_RSA, bitLen)
         return crypto.dump_privatekey(crypto.FILETYPE_PEM, key)
     
-    def generate_certificate_signing_request(self, pkey: str, domain: str, country_code: str = 'MX', state: str = 'Tabasco', location: str = 'Emiliano Zapata',
+    def generate_certificate_signing_request(self, pkey: str, domain: str, dnsname=[], ipaddr=[], country_code: str = 'MX', state: str = 'Tabasco', location: str = 'Emiliano Zapata',
                                 organization: str = 'ChilliTech', organization_unit: str = 'Innovation', digest: str = "sha256") -> bytes:
+        
+        ss = []
+        for i in dnsname:
+            ss.append("DNS: %s" % i)
+        for i in ipaddr:
+            ss.append("IP: %s" % i)
+        ss = ", ".join(ss)
+
+        # Add in extensions
+        base_constraints = ([
+            crypto.X509Extension(
+                        b"keyUsage",
+                        False,
+                        b"Digital Signature, Non Repudiation, Key Encipherment"),
+            crypto.X509Extension(b"basicConstraints", False, b"CA:FALSE"),
+        ])
+        x509_extensions = base_constraints
+        
         key = crypto.load_privatekey(crypto.FILETYPE_PEM, pkey)
         req = crypto.X509Req()
         req.get_subject().CN = domain
+        
+        if ss:
+            san_constraint = crypto.X509Extension(b"subjectAltName", False, ss.encode('utf-8'))
+            x509_extensions.append(san_constraint)
+
+        req.add_extensions(x509_extensions)
+
+        
         req.get_subject().C = country_code
         req.get_subject().ST = state
         req.get_subject().L = location

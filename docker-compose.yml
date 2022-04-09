@@ -1,29 +1,14 @@
 version: '3'
 services:
-  db:
-    image: mariadb:10.5.8
-    command: --default-authentication-plugin=mysql_native_password
-    env_file:
-      - ./services/db/.env
-    ports:
-      - 3306:3306
-    volumes:
-      - ./volumes/db:/var/lib/mysql
-  adminer:
-    image: adminer:latest
-    env_file:
-      - ./services/adminer/.env
-    ports:
-      - 8080:8080
-  
   mosquitto:
     image: eclipse-mosquitto
     hostname: mosquitto
     volumes:
       - ./services/mosquitto:/mosquitto
+      #- ./volumes/server/credentials/server:/mosquitto/certs
     expose:
-        - "1883"
+        - "8883"
         - "9001"
     ports:
-        - "1883:1883"
+        - "8883:8883"
         - "9001:9001"
