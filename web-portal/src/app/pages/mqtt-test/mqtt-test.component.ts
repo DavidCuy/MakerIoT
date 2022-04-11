@@ -21,9 +21,12 @@ export class MqttTestComponent implements OnInit, OnDestroy {
   topic_messages: Array<TopicMessage> = [];
   displayed_messages: Array<MqttMessage> = [];
 
+  prevMillis: number = new Date().getTime()
+
   constructor(private mqttManager: MqttManagerService) { }
 
   ngOnInit(): void {
+    this.topic_messages = []
   }
 
   ngOnDestroy(): void {
@@ -47,19 +50,29 @@ export class MqttTestComponent implements OnInit, OnDestroy {
       topic: this.selected_topic,
       messages: [],
       subscription: this.mqttManager.subscribe(this.sub_topic_model).subscribe((message: IMqttMessage) => {
-        if (this.subscribed_topics.includes(message.topic)) {
-          const payload = JSON.parse(message.payload.toString());
-
-          let selected_tm = this.topic_messages.find((tm) => tm.topic == message.topic);
-          console.log(selected_tm)
-          if(selected_tm === null || selected_tm === undefined) return
-          const mqtt_message: MqttMessage = {
-            datetime: new Date(),
-            payload: payload,
-            topic: message.topic
+        if (new Date().getTime() - this.prevMillis < 100) return
+        this.prevMillis = new Date().getTime()
+        const wildcard_topics = this.subscribed_topics.filter(m => this.mqttManager.wildcard(message.topic, m) !== null )
+        if (wildcard_topics.length > 0) {
+          let payload = "";
+          try {
+            payload = JSON.parse(message.payload.toString());
+          } catch (e) {
+            payload = message.payload.toString();
           }
-          selected_tm?.messages.unshift(mqtt_message)
-          console.log(this.topic_messages)
+
+          wildcard_topics.forEach(t => {
+            let selected_tm = this.topic_messages.find((tm) => tm.topic == t);
+            console.log(selected_tm)
+            if(selected_tm === null || selected_tm === undefined) return
+            const mqtt_message: MqttMessage = {
+              datetime: new Date(),
+              payload: payload,
+              topic: t
+            }
+            selected_tm?.messages.unshift(mqtt_message)
+            console.log(this.topic_messages)
+          });
         }
       })
     }
