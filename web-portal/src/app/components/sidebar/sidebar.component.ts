@@ -25,13 +25,19 @@ export class SidebarComponent implements OnInit, DoCheck {
       icon: 'network_wifi',
       submenu: [{
         title: 'Test',
-        name: 'mqtt-test',
-        url: '/mqtt-test'
+        name: 'mqtt-client-test',
+        url: '/mqtt-client/test'
       }, {
         title: 'Gestor de credenciales',
         name: 'credential-manager',
         url: '/mqtt-credential-manager'
       }]
+    },
+    {
+      title: 'Configuracion',
+      name: 'config',
+      icon: 'settings',
+      url: '/settings'
     }
   ]
 

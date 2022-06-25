@@ -9,11 +9,11 @@
 <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
     <ul class="navbar-nav">
         <li class="nav-item" *ngFor="let mitem of menu_items">
-            <a *ngIf="mitem.submenu" data-bs-toggle="collapse" [href]="'#{{mitem.name}}'" class="nav-link text-white" [ngClass]="{'active': router_active === mitem.name}" role="button">
+            <a *ngIf="mitem.submenu" data-bs-toggle="collapse" [href]="'#'+mitem.name" class="nav-link text-white" [ngClass]="{'collapsed': router_active != mitem.name}" role="button" [attr.aria-expanded]="router_active === mitem.name ? 'true' : 'false'">
                 <i class="material-icons-round me-2">{{ mitem.icon }}</i>
                 <span class="nav-link-text ms-2 ps-1">{{ mitem.title }}</span>
             </a>
-            <div class="collapse show" id="{{mitem.name}}" *ngIf="mitem.submenu">
+            <div class="collapse" id="{{mitem.name}}" *ngIf="mitem.submenu" [ngClass]="{'show': router_active === mitem.name}">
                 <ul class="nav">
                     <li class="nav-item " *ngFor="let sm of mitem.submenu">
                         <a class="nav-link text-white " routerLink="{{ sm.url }}" routerLinkActive="active bg-gradient-primary">

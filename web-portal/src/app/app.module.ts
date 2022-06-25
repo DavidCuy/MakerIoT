@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,12 +7,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ConfigbarComponent } from './components/configbar/configbar.component';
-import { MqttTestComponent } from './pages/mqtt-test/mqtt-test.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { environment as env } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MqttCredentialComponent } from './pages/mqtt-credential/mqtt-credential.component';
+import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
+import { environment as env } from '../environments/environment';
+import { ConfigComponent } from './pages/config/config.component';
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: env.mqtt.server,
@@ -22,6 +22,14 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   path: '',
 };
 
+const importModules = [
+  BrowserModule,
+  AppRoutingModule,
+  CommonModule,
+  FormsModule,
+  MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,17 +37,11 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     NavbarComponent,
     FooterComponent,
     ConfigbarComponent,
-    MqttTestComponent,
     DashboardComponent,
-    MqttCredentialComponent
+    MqttCredentialComponent,
+    ConfigComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CommonModule,
-    FormsModule,
-    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
-  ],
+  imports: importModules,
   providers: [],
   bootstrap: [AppComponent]
 })
