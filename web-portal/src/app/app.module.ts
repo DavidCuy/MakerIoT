@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,20 +15,27 @@ import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
 import { environment as env } from '../environments/environment';
 import { ConfigComponent } from './pages/config/config.component';
 
-const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: env.mqtt.server,
-  port: env.mqtt.port,
-  protocol: (env.mqtt.protocol === 'wss') ? 'wss' : 'ws',
-  path: '',
-};
-
-const importModules = [
+const importModules: (typeof BrowserModule | typeof AppRoutingModule | ModuleWithProviders<MqttModule>) [] = [
   BrowserModule,
   AppRoutingModule,
   CommonModule,
-  FormsModule,
-  MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
+  FormsModule
 ]
+
+const hostIP = localStorage.getItem('hostIP')
+
+if (hostIP !== null) {
+  env.mqtt.server = hostIP
+  const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+    hostname: env.mqtt.server,
+    port: env.mqtt.port,
+    protocol: (env.mqtt.protocol === 'wss') ? 'wss' : 'ws',
+    path: '',
+  };
+
+  const mqttModule = MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
+  importModules.push(mqttModule)
+}
 
 @NgModule({
   declarations: [

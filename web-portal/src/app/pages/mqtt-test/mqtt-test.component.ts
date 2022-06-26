@@ -4,6 +4,8 @@ import { Subject, Observable, Subscription } from 'rxjs';
 import { MqttManagerService } from '../../services/mqtt-manager.service';
 import { TopicMessage } from '../../interfaces/TopicMessage.interface'
 import { MqttMessage } from '../../interfaces/MqttMessage.interface';
+import { environment as env } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mqtt-test',
@@ -23,10 +25,13 @@ export class MqttTestComponent implements OnInit, OnDestroy {
 
   prevMillis: number = new Date().getTime()
 
-  constructor(private mqttManager: MqttManagerService) { }
+  constructor(private mqttManager: MqttManagerService, private router: Router) { }
 
   ngOnInit(): void {
     this.topic_messages = []
+    if (env.mqtt.server === '' || env.mqtt.server === null) {
+      this.router.navigate(['/settings'])
+    }
   }
 
   ngOnDestroy(): void {
