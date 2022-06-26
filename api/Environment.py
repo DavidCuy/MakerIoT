@@ -27,8 +27,10 @@ APP_NAME    = env("APP_NAME", "Flask app")
 APP_URL     = env("APP_URL", "http://localhost")
 STAGE       = env("STAGE", "dev")
 
+SQLITE_PATH             = env("SQLITE_PATH", "app.db")
+
 DB_DRIVER               = env("DB_DRIVER", "sqlite")
-DB_CONNECTION_STRING    = env("DB_CONNECTION_STRING", "sqlite:///app.db")
+DB_CONNECTION_STRING    = f"sqlite:///{os.path.abspath(os.path.join(os.path.dirname(__file__), SQLITE_PATH))}"
 
 SERVER_CA_CERT = "ca.crt"
 SERVER_CA_KEY= "ca.key"

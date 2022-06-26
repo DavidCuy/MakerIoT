@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask
 from flask_migrate import Migrate, migrate
 from flask_cors import CORS
 from flask.json import jsonify
@@ -8,7 +8,6 @@ from flask.json import jsonify
 import portal.database.DBConnection as DBConn
 from portal.app.Data.Models import *
 from portal.app.Exceptions.APIException import APIException
-from initial_conf import generate_server_credentials
 import Environment as env
 
 
@@ -33,9 +32,6 @@ def create_app():
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    
-    # Verifying server credentials
-    generate_server_credentials()
     
     from .routes.MqttTopicRouter import mqtt_router, mqtt_service
 
