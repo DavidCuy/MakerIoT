@@ -36,7 +36,7 @@ def create_app():
     
     # Verifying server credentials
     generate_server_credentials()
-
+    
     from .routes.MqttTopicRouter import mqtt_router, mqtt_service
 
     app.register_blueprint(mqtt_router, url_prefix=f'/{env.STAGE}/{mqtt_service.get_model_path_name()}')

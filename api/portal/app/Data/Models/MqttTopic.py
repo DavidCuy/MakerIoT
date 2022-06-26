@@ -23,7 +23,8 @@ class MqttTopic(BaseModel):
             "id": "IdMqttTopic"
         }
     
-    def display_members(self) -> List[str]:
+    @classmethod
+    def display_members(cls_) -> List[str]:
         return [
             "id", "topic", "description"
         ]

@@ -1,3 +1,7 @@
-from Environment import env
+import Environment as env
 
-SQLITE_PATH     = env("SQLITE_PATH", "localhost")
+config = {
+    'sqlite': {
+        'conn_string': env.DB_CONNECTION_STRING
+    }
+}
