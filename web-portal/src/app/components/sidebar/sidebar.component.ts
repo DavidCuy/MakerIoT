@@ -20,6 +20,12 @@ export class SidebarComponent implements OnInit, DoCheck {
       url: '/dashboard'
     },
     {
+      title: 'Dispositivos',
+      name: 'devices',
+      icon: 'smartphone',
+      url: '/devices'
+    },
+    {
       title: 'Configuracion',
       name: 'config',
       icon: 'settings',
