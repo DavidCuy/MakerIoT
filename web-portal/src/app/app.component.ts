@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { environment as env } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +13,14 @@ export class AppComponent implements OnInit {
 
   pageName: string = ''
 
+  constructor(private router: Router, private toastr: ToastrService) {
+  }
+
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    if (env.mqtt.server === '' || env.mqtt.server === null) {
+      this.toastr.warning('No hay configuracion de host', 'Precaucion')
+      this.router.navigate(['/settings'])
+    }
 
   }
 

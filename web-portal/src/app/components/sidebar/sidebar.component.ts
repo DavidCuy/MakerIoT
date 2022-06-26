@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment as env } from 'src/environments/environment';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -20,20 +20,6 @@ export class SidebarComponent implements OnInit, DoCheck {
       url: '/dashboard'
     },
     {
-      title: 'MQTT',
-      name: 'mqtt',
-      icon: 'network_wifi',
-      submenu: [{
-        title: 'Test',
-        name: 'mqtt-client-test',
-        url: '/mqtt-client/test'
-      }, {
-        title: 'Gestor de credenciales',
-        name: 'credential-manager',
-        url: '/mqtt-credential-manager'
-      }]
-    },
-    {
       title: 'Configuracion',
       name: 'config',
       icon: 'settings',
@@ -44,7 +30,22 @@ export class SidebarComponent implements OnInit, DoCheck {
   constructor(public router: Router) { }
 
   ngOnInit(): void {
-
+    if (env.mqtt.server != '') {
+      this.menu_items.push({
+        title: 'MQTT',
+        name: 'mqtt',
+        icon: 'network_wifi',
+        submenu: [{
+          title: 'Test',
+          name: 'mqtt-client-test',
+          url: '/mqtt-client/test'
+        }, {
+          title: 'Gestor de credenciales',
+          name: 'credential-manager',
+          url: '/mqtt-credential-manager'
+        }]
+      })
+    }
   }
 
   ngDoCheck(): void {

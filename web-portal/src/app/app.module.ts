@@ -14,12 +14,17 @@ import { MqttCredentialComponent } from './pages/mqtt-credential/mqtt-credential
 import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
 import { environment as env } from '../environments/environment';
 import { ConfigComponent } from './pages/config/config.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
-const importModules: (typeof BrowserModule | typeof AppRoutingModule | ModuleWithProviders<MqttModule>) [] = [
+
+const importModules: (typeof BrowserModule | typeof AppRoutingModule | ModuleWithProviders<MqttModule> | ModuleWithProviders<ToastrModule>  ) [] = [
   BrowserModule,
   AppRoutingModule,
   CommonModule,
-  FormsModule
+  FormsModule,
+  BrowserAnimationsModule,
+  ToastrModule.forRoot()
 ]
 
 const hostIP = localStorage.getItem('hostIP')
