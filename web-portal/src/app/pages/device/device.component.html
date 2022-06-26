@@ -1,33 +1,42 @@
 <div class="container mt-5">
     <div class="row">
         <div class="row shedules-container">
-            <div class="col-lg-4 col-md-3 col-sm-6" *ngFor="let device of devices">
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let device of devices">
                 <div class="card card-frame">
                     <div class="card-body">
-                        <div class="float-end float-right">
-                            <button class="btn btn-icon btn-2 btn-danger btn-icon-only rounded-circle" type="button">
-                            <span class="btn-inner--icon"><i class="material-icons">delete</i></span>
-                        </button>
-                        </div>
                         <h3>{{ device.name }}</h3>
 
                         <div class="row mt-3">
-                            <div class="col-md-6 col-sm-12">
-                                <span><b>Inicio</b></span><br>
-                                <span>---</span>
+                            <div class="col-12">
+                                <span><b># Serie:</b></span><br>
+                                <span>125b5a451fda</span>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <span><b>Fin</b></span><br>
-                                <span>---</span>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                                <button class="btn btn-icon btn-2 btn-info btn-icon-only rounded-circle" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Configuracion" data-container="body" data-animation="true">
+                                  <span class="btn-inner--icon"><i class="material-icons">settings</i></span>
+                              </button>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                                <button class="btn btn-icon btn-2 btn-warning btn-icon-only rounded-circle" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" data-container="body" data-animation="true">
+                                <span class="btn-inner--icon"><i class="material-icons">edit</i></span>
+                            </button>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
+                                <button class="btn btn-icon btn-2 btn-danger btn-icon-only rounded-circle" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" data-container="body" data-animation="true">
+                              <span class="btn-inner--icon"><i class="material-icons">delete</i></span>
+                          </button>
                             </div>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
                     <div class="card-footer">
-                        <div><b>Playlist</b></div>
+                        <div><b>Tipo de dispositivo</b></div>
                         <div class="d-flex">
                             <a href="javascript:void(0)">
-                                <span class="badge bg-gradient-secondary">Playlist custom</span>
+                                <span class="badge bg-gradient-secondary">Modbus</span>
                             </a>
                         </div>
                     </div>
