@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (env.mqtt.server === '' || env.mqtt.server === null) {
+    if (env.hostIP === '' || env.hostIP === null) {
       this.toastr.warning('No hay configuracion de host', 'Precaucion')
       this.router.navigate(['/settings'])
     }

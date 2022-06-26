@@ -27,7 +27,7 @@ export class ConfigComponent implements OnInit {
       return
     }
     localStorage.setItem('hostIP', this.hostIP)
-    env.mqtt.server = this.hostIP
+    env.hostIP = this.hostIP
     this.toastr.success('Se ha guardado la configuracion', 'Correcto').onHidden.subscribe((toastr) => window.location.reload())
   }
 

@@ -30,9 +30,9 @@ const importModules: (typeof BrowserModule | typeof AppRoutingModule | ModuleWit
 const hostIP = localStorage.getItem('hostIP')
 
 if (hostIP !== null) {
-  env.mqtt.server = hostIP
+  env.hostIP = hostIP
   const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-    hostname: env.mqtt.server,
+    hostname: env.hostIP,
     port: env.mqtt.port,
     protocol: (env.mqtt.protocol === 'wss') ? 'wss' : 'ws',
     path: '',

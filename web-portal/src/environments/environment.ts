@@ -2,10 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+export let hostIP = localStorage.getItem('hostIP')
+
 export const environment = {
   production: false,
+  hostIP: hostIP,
   mqtt: {
-    server: '',
     protocol: 'ws',
     port: 9001
   }

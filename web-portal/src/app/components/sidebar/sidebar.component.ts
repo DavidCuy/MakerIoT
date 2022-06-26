@@ -30,7 +30,8 @@ export class SidebarComponent implements OnInit, DoCheck {
   constructor(public router: Router) { }
 
   ngOnInit(): void {
-    if (env.mqtt.server != '') {
+    console.log(env.hostIP)
+    if (env.hostIP != '' && env.hostIP != null) {
       this.menu_items.push({
         title: 'MQTT',
         name: 'mqtt',
