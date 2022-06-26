@@ -34,8 +34,10 @@ def create_app():
         pass
     
     from .routes.MqttTopicRouter import mqtt_router, mqtt_service
+    from.routes.DeviceTypeRouter import deviceType_router, deviceType_service
 
     app.register_blueprint(mqtt_router, url_prefix=f'/{env.STAGE}/{mqtt_service.get_model_path_name()}')
+    app.register_blueprint(deviceType_router, url_prefix=f'/{env.STAGE}/{deviceType_service.get_model_path_name()}')
     
 
     @app.errorhandler(APIException)
