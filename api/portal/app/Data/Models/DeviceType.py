@@ -1,5 +1,5 @@
 from typing import Any, Dict, List
-from unicodedata import name
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String
 from ...Core.Data.BaseModel import BaseModel
 
@@ -15,6 +15,12 @@ class DeviceType(BaseModel):
     __tablename__ = 'DeviceTypes'
     id = Column("IdDeviceType", Integer, primary_key=True)
     name = Column("name", String, nullable=False)
+    
+    devices = relationship("Device", back_populates="deviceType")
+    
+    filter_columns = []
+    relationship_names = ["devices"]
+    search_columns = ["name"]
     
     model_path_name = "device-type"
     
