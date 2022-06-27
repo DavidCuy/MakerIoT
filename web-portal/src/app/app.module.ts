@@ -17,12 +17,14 @@ import { ConfigComponent } from './pages/config/config.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DeviceComponent } from './pages/device/device.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const importModules: (typeof BrowserModule | typeof AppRoutingModule | ModuleWithProviders<MqttModule> | ModuleWithProviders<ToastrModule>  ) [] = [
   BrowserModule,
   AppRoutingModule,
   CommonModule,
+  HttpClientModule,
   FormsModule,
   BrowserAnimationsModule,
   ToastrModule.forRoot()

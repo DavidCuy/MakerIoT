@@ -7,6 +7,7 @@ export let hostIP = localStorage.getItem('hostIP')
 export const environment = {
   production: false,
   hostIP: hostIP,
+  apiPort: 5000,
   mqtt: {
     protocol: 'ws',
     port: 9001
