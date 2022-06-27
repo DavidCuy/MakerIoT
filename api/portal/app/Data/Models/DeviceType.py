@@ -24,11 +24,6 @@ class DeviceType(BaseModel):
     
     model_path_name = "device-type"
     
-    def property_map(self) -> Dict:
-        return {
-            "id": "IdDeviceType"
-        }
-    
     @classmethod
     def display_members(cls_) -> List[str]:
         return [
